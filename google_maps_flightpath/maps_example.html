@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Maps example</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAtpAaJ2WLXlWoyhognEpOhhSP_66ATz4RoF_AogCWlk8DcieZQhSYppGsdXebygNjB_QnKjVct-rYFQ" type="text/javascript"></script>
+    <script type="text/javascript" src="sprintf.js"></script>
+    <script type="text/javascript" src="flightpath.js"></script>
+    <script type="text/javascript"> 
+    function calculateWaypointDistance(wps) {
+      function distance (first, second) {
+        var R = 6371; // km
+        var dLat = (second.lat()-first.lat()).toRad();
+        var dLon = (second.lng()-first.lng()).toRad(); 
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2); 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c;
+        
+        return d;
+      }
+    }
+    
+    function createIconUrl(str) {
+      return "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + str + "|FFFFFF|666666";
+    }
+    </script>
+  </head>
+  <body onload="Flightpath.init()" onunload="GUnload()">
+    <h1>Flight Path</h1>
+    <div id="map_canvas" style="width: 700px; height: 500px; float:left;"></div>
+    <button onclick="Flightpath.clearWaypoints();Flightpath.outputWaypointTable()">Clear Waypoints</button>
+    <button onclick="Flightpath.outputWaypointTable()">Update Table</button>
+    <div id="waypoint_table"></div>
+  </body>
+</html>
